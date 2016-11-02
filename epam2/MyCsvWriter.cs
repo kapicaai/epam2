@@ -8,7 +8,7 @@ namespace epam2
 {
     public class MyCsvWriter
     {
-        public void Write(List<List<string>> list, string fileName)
+        public void Write(IList<IList<string>> list, string fileName)
         {
             StreamWriter writer = new StreamWriter(fileName);
             var csvWriter = new CsvWriter(writer);

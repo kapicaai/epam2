@@ -11,14 +11,15 @@ namespace epam2
     {
         StreamReader reader;
 
-        public List<List<string>> GetCsvData(string filename)
+        public IList<IList<string>> GetCsvData(string filename)
         {
             reader = new StreamReader(filename);
             
             var parser = new CsvParser(reader);
-            var records = new List<List<string>>();
+            IList<IList<string>> records = new List<IList<string>>();
             var row = new string[2];
-            while(true)
+            row = parser.Read();
+            while (true)
             {
                 row = parser.Read();
                 if (row == null)
@@ -27,7 +28,18 @@ namespace epam2
                 records.Add(row.ToList());
             }
             reader.Close();
-            return records as List<List<string>>;
+            return records;
+        }
+
+        public IList<string> GetCsvHeader(string filename)
+        {
+            reader = new StreamReader(filename);
+
+            var parser = new CsvParser(reader);
+            var row = new string[2];
+            row = parser.Read();
+            reader.Close();
+            return row.ToList();
         }
     }
 }

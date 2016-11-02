@@ -8,6 +8,6 @@ namespace epam2
 {
     interface IClassificationAlgorithm
     {
-        IList<DataTable> Classify(DataTable table);
+        IList<DataTable> Classify(DataTable table, string nameOfAttribute);
     }
 }
