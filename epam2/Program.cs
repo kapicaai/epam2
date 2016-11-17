@@ -12,19 +12,23 @@ namespace epam2
         static void Main(string[] args)
         {
             //string filename = args[0];
-            string fileName = "simpsons_characters.csv";
+            string fileName = "Contarcts.csv";
             DataTable table;
             MyCsvParser parser = new MyCsvParser();
             table = new DataTable(parser.GetCsvData(fileName), parser.GetCsvHeader(fileName));
             FileInfo fileInfo = new FileInfo(fileName);
 
-            IClassificationAlgorithm algo = new SimpleFingerPrint();
-            List<DataTable> newTables = (List<DataTable>) algo.Classify(table, "gender");
+            IClassificationAlgorithm algo = new Classificator(new FingerPrint());
+            List<DataTable> newTables = (List<DataTable>) algo.Classify(table, "Contract Description (USAspending)");
 
             MyCsvWriter writer = new MyCsvWriter();
-            for(int i = 0; i < newTables.Count; i++)
+            IEnumerable<DataTable> toWrite = newTables.Where(x => x.Data.Count() > 1);
+            int count = 0;
+            string outputFileFormat = "{0}\\output\\{1}-Contracts.csv";
+            foreach(DataTable t in toWrite)
             {
-                writer.Write(newTables[i].Data, fileInfo.DirectoryName+ "\\" + i + "claster.csv");
+                writer.Write(t.Data, string.Format(outputFileFormat, fileInfo.DirectoryName, count));
+                count++;
             }
 
         }

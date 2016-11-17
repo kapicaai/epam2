@@ -51,12 +51,14 @@
     <Compile Include="ClasterizeAlgorithm.cs" />
     <Compile Include="CsvParser.cs" />
     <Compile Include="DataTable.cs" />
+    <Compile Include="FingerPring.cs" />
+    <Compile Include="IAlgorythm.cs" />
+    <Compile Include="Levenstein.cs" />
     <Compile Include="MyCsvWriter.cs" />
     <Compile Include="NgramFingerPrint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleAlgorithm.cs" />
-    <Compile Include="SimpleFingerPrint.cs" />
+    <Compile Include="Classificator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

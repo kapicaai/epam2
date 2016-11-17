@@ -8,20 +8,42 @@ namespace epam2
 {
     class AttributeParser
     {
-        public IList<string> RemovePunctuation(IList<string> source)
+        public IEnumerable<string> RemovePunctuation(IEnumerable<string> source)
         {
             List<string> toProcessList = source.ToList();
 
             for(int i = 0; i < toProcessList.Count; i++)
             {
-                toProcessList[i] = RemovePunctuationInString(toProcessList[i]);
-                toProcessList[i] = SortByAlphabet(toProcessList[i]);
+                toProcessList[i] = RemovePunctuationInString(toProcessList[i]); ;
             }
 
             return toProcessList;
         }
 
-        private string RemovePunctuationInString(string str)
+        public IEnumerable<string> SortByAlphabet(IEnumerable<string> source)
+        {
+            List<string> toProcessList = source.ToList();
+
+            for (int i = 0; i < toProcessList.Count; i++)
+            {
+                
+                toProcessList[i] = SortAttributeByAlphabet(toProcessList[i]);
+            }
+
+            return toProcessList;
+        }
+
+        //public IList<string> GetNgrams(IList<string> source, int n)
+        //{
+        //    for(int i = 0; i < source.Count; i++)
+        //    {
+        //        source[i] = RemoveWhiteSpaces(source[i]);
+        //        List<string> ngrams = GetNgramString(source[i], n);
+                
+        //    }
+        //}
+
+        public string RemovePunctuationInString(string str)
         {
             StringBuilder toReturn = new StringBuilder();
             for(int i = 0; i < str.Length; i++)
@@ -34,13 +56,36 @@ namespace epam2
             return toReturn.ToString();
         }
 
-        private List<string> SplitIntoWords(string str)
+
+        public string RemoveWhiteSpaces(string str)
+        {
+            return str.Replace(" ", "");
+        }
+        public  string NormalizeString(string str)
+        {
+            return RemoveWhiteSpaces(RemovePunctuationInString(str.ToLower()));
+        }
+        
+
+        public List<string> SplitIntoWords(string str)
         {
             string[] splitted = str.Split(' ', '\t', '\n');
             return splitted.ToList();
         }
 
-        private string SortByAlphabet(string str)
+        public string GetNgramString(string source, int n)
+        {
+            string str = NormalizeString(source);
+            StringBuilder builder = new StringBuilder();
+            
+            for (int i = 0; i <= str.Length - n; i++)
+            {
+                builder.Append(new string(str.Substring(i, n).OrderBy(ch => ch).ToArray()));
+            }
+            return builder.ToString();
+        }
+
+        public string SortAttributeByAlphabet(string str)
         {
             List<string> strList = SplitIntoWords(str);
             strList.Sort();
@@ -49,6 +94,7 @@ namespace epam2
             {
                 builder.Append(word);
             }
+            
             return builder.ToString();
         }
     }

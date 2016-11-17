@@ -51,14 +51,13 @@ namespace epam2
             return null;
         }
 
-        public List<string> GetColumn(int number)
+        public IEnumerable<string> GetColumn(int number)
         {
             if (Data != null && (Data.Count > 0))
             {
                 if (Data.First().Count > number)
                 {
-                    List<string> column = Data.Select(x => x[number]).ToList();
-                    return column;
+                    return Data.Select(x => x[number]);                    
                 }
             }
             return null;
@@ -68,7 +67,7 @@ namespace epam2
         {
             if (Data != null && (Data.Count > 0))
             {
-                int number = Header.IndexOf(name);
+                int number = (Header as List<string>).FindIndex(x => x.Contains(name));
                 if (Data.First().Count > number)
                 {
                     List<string> column = Data.Select(x => x[number]).ToList();
