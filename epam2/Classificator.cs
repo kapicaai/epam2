@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace epam2
+namespace Clusterizer
 {
-    class Classificator : IClassificationAlgorithm
+    class Classificator : IClassificator
     {
         IAlgorythm algo;
         AttributeParser parser = new AttributeParser();
@@ -18,23 +18,25 @@ namespace epam2
 
         public IList<DataTable> Classify(DataTable mainTable, string nameOfAttribute)
         {
-
+            DataTable mainTableCopy = mainTable.Clone();
             int numberOfColumn = mainTable.GetNumberOfAttribute(nameOfAttribute);
             IEnumerable<string> clasterizeColumn = mainTable.GetColumn(numberOfColumn);
 
             IList<DataTable> resultTables = new List<DataTable>();
             int count = 0;
+
             foreach (var attribute in clasterizeColumn)
             {
                 DataTable temp = new DataTable(mainTable.Header);
-                DataTable x = AimCluster(resultTables, attribute, numberOfColumn);                
+                DataTable x = (resultTables as List<DataTable>).
+                    Find(t => algo.IsTheSame(attribute, t.GetColumn(numberOfColumn).First()));                
                 if (x != null)
                 {
-                    x.Data.Add(mainTable.GetRow(count));
+                    x.Rows.Add(mainTable.GetRow(count));
                 }
                 else
                 {
-                    temp.Data.Add(mainTable.GetRow(count));
+                    temp.Rows.Add(mainTable.GetRow(count));
                     resultTables.Add(temp);
                 }
                 
@@ -42,11 +44,6 @@ namespace epam2
             }
 
             return resultTables;
-        }
-
-        private DataTable AimCluster(IList<DataTable> resultTables, string attribute, int numbOfColumn)
-        {
-            return (resultTables as List<DataTable>).Find(x => algo.IsTheSame(attribute, x.GetColumn(numbOfColumn).First()));
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace epam2
+namespace Clusterizer
 {
-    interface IClassificationAlgorithm
+    public interface IClassificator
     {
         IList<DataTable> Classify(DataTable table, string nameOfAttribute);
     }

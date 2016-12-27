@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace epam2
+namespace Clusterizer
 {
-    class Levenstein : IAlgorythm
+    public class Levenstein : IAlgorythm
     {
         private int level;
 
@@ -17,7 +17,8 @@ namespace epam2
 
         public bool IsTheSame(string str1, string str2)
         {
-            return ComputeDistance(str1, str2) < level;
+            AttributeParser parser = new AttributeParser();   
+            return ComputeDistance(parser.NormalizeString(str1), parser.NormalizeString(str2)) < level;
         }
 
         private int ComputeDistance(string str1, string str2)

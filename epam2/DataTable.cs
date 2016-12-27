@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace epam2
+namespace Clusterizer
 {
     public class DataTable
     {
         public IList<string> Header { get; private set; }
         IList<IList<string>> table;
-        public IList<IList<string>> Data
+        public IList<IList<string>> Rows
         {
             get
             {
@@ -46,18 +46,18 @@ namespace epam2
 
         public IList<string> GetRow(int number)
         {
-            if (Data != null && Data.Count > number)
-                return Data[number];
+            if (Rows != null && Rows.Count > number)
+                return Rows[number];
             return null;
         }
 
         public IEnumerable<string> GetColumn(int number)
         {
-            if (Data != null && (Data.Count > 0))
+            if (Rows != null && (Rows.Count > 0))
             {
-                if (Data.First().Count > number)
+                if (Rows.First().Count > number)
                 {
-                    return Data.Select(x => x[number]);                    
+                    return Rows.Select(x => x[number]);                    
                 }
             }
             return null;
@@ -65,12 +65,12 @@ namespace epam2
 
         public List<string> GetColumn(string name)
         {
-            if (Data != null && (Data.Count > 0))
+            if (Rows != null && (Rows.Count > 0))
             {
                 int number = (Header as List<string>).FindIndex(x => x.Contains(name));
-                if (Data.First().Count > number)
+                if (Rows.First().Count > number)
                 {
-                    List<string> column = Data.Select(x => x[number]).ToList();
+                    List<string> column = Rows.Select(x => x[number]).ToList();
                     return column;
                 }
             }
@@ -79,11 +79,28 @@ namespace epam2
 
         public int GetNumberOfAttribute(string name)
         {
-            if (Data != null && (Data.Count > 0))
+            if (Rows != null && (Rows.Count > 0))
             {
                 return Header.IndexOf(name);
             }
             return -1;
+        }
+
+        public DataTable Clone()
+        {
+            return new DataTable
+            { Rows = this.Rows.ToList(), Header = this.Header.ToList(), table = this.table.ToList() };
+        }
+
+        public bool IsColumnBoring(int numberOfColumn)
+        {
+            IEnumerable<string> column = GetColumn(numberOfColumn);
+            string first = column.First();
+            if (first != null && first.Length > 0)
+            {
+                return column.All(x => string.Equals(x, first));
+            }
+            return true;
         }
     }
 }

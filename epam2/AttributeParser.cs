@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace epam2
+namespace Clusterizer
 {
     class AttributeParser
     {
@@ -27,7 +27,7 @@ namespace epam2
             for (int i = 0; i < toProcessList.Count; i++)
             {
                 
-                toProcessList[i] = SortAttributeByAlphabet(toProcessList[i]);
+                toProcessList[i] = SortWordsByAlphabet(toProcessList[i]);
             }
 
             return toProcessList;
@@ -61,7 +61,8 @@ namespace epam2
         {
             return str.Replace(" ", "");
         }
-        public  string NormalizeString(string str)
+
+        public string NormalizeString(string str)
         {
             return RemoveWhiteSpaces(RemovePunctuationInString(str.ToLower()));
         }
@@ -85,7 +86,7 @@ namespace epam2
             return builder.ToString();
         }
 
-        public string SortAttributeByAlphabet(string str)
+        public string SortWordsByAlphabet(string str)
         {
             List<string> strList = SplitIntoWords(str);
             strList.Sort();

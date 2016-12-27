@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace epam2
+namespace Clusterizer
 {
-    class NgramFingerPrint : IAlgorythm
+    public class NgramFingerPrint : IAlgorythm
     {
         int n;
         AttributeParser parser = new AttributeParser();

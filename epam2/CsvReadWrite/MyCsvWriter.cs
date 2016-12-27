@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using CsvHelper;
 
-namespace epam2
+namespace Clusterizer
 {
     public class MyCsvWriter
     {

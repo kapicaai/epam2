@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using CsvHelper;
 
-namespace epam2
+namespace Clusterizer
 {
     class MyCsvParser
     {
