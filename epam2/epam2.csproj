@@ -49,18 +49,20 @@
   <ItemGroup>
     <Compile Include="AlgorythmFactory.cs" />
     <Compile Include="AttributeParser.cs" />
-    <Compile Include="Alorythms\ClasterizeAlgorithm.cs" />
+    <Compile Include="DictionaryClassificator.cs" />
+    <Compile Include="IClassificator.cs" />
     <Compile Include="CsvReadWrite\CsvParser.cs" />
     <Compile Include="DataTable.cs" />
-    <Compile Include="Alorythms\FingerPrint.cs" />
-    <Compile Include="Alorythms\IAlgorythm.cs" />
-    <Compile Include="Alorythms\Levenstein.cs" />
+    <Compile Include="Algorythms\FingerPrint.cs" />
+    <Compile Include="Algorythms\IAlgorythm.cs" />
+    <Compile Include="Algorythms\Levenstein.cs" />
     <Compile Include="CsvReadWrite\MyCsvWriter.cs" />
-    <Compile Include="Alorythms\NgramFingerPrint.cs" />
-    <Compile Include="Alorythms\PPMAlgorythm.cs" />
+    <Compile Include="Algorythms\NgramFingerPrint.cs" />
+    <Compile Include="Algorythms\PPMAlgorythm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classificator.cs" />
+    <Compile Include="StringPreparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

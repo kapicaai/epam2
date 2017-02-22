@@ -26,16 +26,13 @@ namespace Clusterizer
             IAlgorythm algorythm;
 
             algorythm = new AlgorythmFactory().CreateAlgorythm(alg);
-
-
+            
             IClassificator classificator = new Classificator(new FingerPrint());
             List<DataTable> newTables = (List<DataTable>) classificator.Classify(table, columnName);
             
             IEnumerable<DataTable> toWrite = newTables.Where(x => x.Rows.Count() > 1);
             WriteClusters(toWrite, fileInfo);
-
-            
-
+                        
         }
 
         static void WriteClusters(IEnumerable<DataTable> toWrite, FileInfo fileInfo)
